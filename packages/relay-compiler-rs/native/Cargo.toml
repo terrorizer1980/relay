@@ -1,0 +1,27 @@
+[package]
+name = "relay-compiler-rs"
+version = "0.1.0"
+authors = ["Facebook <alunyov@fb.com>"]
+license = "MIT"
+build = "build.rs"
+edition = "2018"
+exclude = ["artifacts.json", "index.node"]
+
+[lib]
+name = "relay_compiler_rs"
+crate-type = ["cdylib"]
+
+[build-dependencies]
+neon-build = "0.4.0"
+
+[dependencies]
+neon = "0.4.0"
+relay-compiler = { path = "../../../compiler/crates/relay-compiler" }
+graphql-syntax = { path = "../../../compiler/crates/graphql-syntax" }
+schema = { path = "../../../compiler/crates/schema" }
+graphql-ir = { path = "../../../compiler/crates/graphql-ir" }
+common = { path = "../../../compiler/crates/common" }
+interner = { path = "../../../compiler/crates/interner" }
+graphql-transforms = { path = "../../../compiler/crates/graphql-transforms" }
+relay-codegen = { path = "../../../compiler/crates/relay-codegen" }
+graphql-text-printer = { path = "../../../compiler/crates/graphql-text-printer" }

@@ -18,6 +18,7 @@ use signedsource::{sign_file, SIGNING_TOKEN};
 use std::fmt::{Result, Write};
 use std::sync::Arc;
 
+#[derive(Debug)]
 pub enum ArtifactContent {
     Operation {
         normalization_operation: Arc<OperationDefinition>,

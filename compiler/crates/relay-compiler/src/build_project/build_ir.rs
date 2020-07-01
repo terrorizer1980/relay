@@ -14,6 +14,7 @@ use graphql_text_printer::print_exectutable_definition_ast;
 use interner::StringKey;
 use md5::{Digest, Md5};
 use schema::Schema;
+use graphql_syntax;
 
 pub struct BuildIRResult {
     pub ir: Vec<graphql_ir::ExecutableDefinition>,
@@ -21,7 +22,25 @@ pub struct BuildIRResult {
     pub base_fragment_names: FnvHashSet<StringKey>,
 }
 
-pub type SourceHashes = FnvHashMap<StringKey, String>;
+#[derive(Debug)]
+pub struct SourceHashes(FnvHashMap<StringKey, String>);
+
+impl SourceHashes {
+    pub fn from_definitions(definitions: &[graphql_syntax::ExecutableDefinition]) -> Self {
+        let mut source_hashes: FnvHashMap<StringKey, String> = Default::default();
+        for ast in definitions {
+            if let Some(name) = ast.name() {
+                source_hashes.insert(name, generate_source_hash(&print_exectutable_definition_ast(ast)));
+            }
+        }
+
+        Self(source_hashes)
+    }
+
+    pub fn get(&self, key: &StringKey) -> Option<String> {
+        self.0.get(key).cloned()
+    }
+}
 
 pub fn build_ir(
     project_config: &ProjectConfig,
@@ -61,12 +80,7 @@ pub fn build_ir(
         base_fragment_names,
     } = get_reachable_ast(project_asts, base_project_asts).unwrap();
 
-    let mut source_hashes: SourceHashes = Default::default();
-    for ast in &reachable_ast {
-        if let Some(name) = ast.name() {
-            source_hashes.insert(name, md5(&print_exectutable_definition_ast(ast)));
-        }
-    }
+    let source_hashes = SourceHashes::from_definitions(&reachable_ast);
 
     let ir = graphql_ir::build(&schema, &reachable_ast)?;
     if is_incremental_build {
@@ -97,7 +111,7 @@ pub fn build_ir(
     }
 }
 
-fn md5(data: &str) -> String {
+fn generate_source_hash(data: &str) -> String {
     let mut md5 = Md5::new();
     md5.input(data);
     hex::encode(md5.result())

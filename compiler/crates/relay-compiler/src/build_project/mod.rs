@@ -24,7 +24,7 @@ use crate::errors::BuildProjectError;
 use crate::{artifact_map::ArtifactMap, graphql_asts::GraphQLAsts};
 pub use apply_transforms::apply_transforms;
 pub use apply_transforms::Programs;
-use build_ir::{BuildIRResult, SourceHashes};
+pub use build_ir::{BuildIRResult, SourceHashes};
 pub use build_schema::build_schema;
 use common::{PerfLogEvent, PerfLogger};
 use fnv::FnvHashMap;

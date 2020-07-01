@@ -22,6 +22,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 /// Represents a generated output artifact.
+#[derive(Debug)]
 pub struct Artifact {
     pub name: StringKey,
     pub path: PathBuf,
@@ -59,7 +60,7 @@ pub fn generate_artifacts(
                 &source_fragment,
             )
             .unwrap();
-            let source_hash = source_hashes.get(&source_name).cloned().unwrap();
+            let source_hash = source_hashes.get(&source_name).unwrap();
             let source_file = source_fragment.name.location.source_location();
             artifacts.push(Artifact {
                 name: normalization_operation.name.item,
@@ -88,7 +89,7 @@ pub fn generate_artifacts(
                 &source_fragment,
             )
             .unwrap();
-            let source_hash = source_hashes.get(&source_name).cloned().unwrap();
+            let source_hash = source_hashes.get(&source_name).unwrap();
 
             artifacts.push(generate_normalization_artifact(
                 project_config,
@@ -115,7 +116,6 @@ pub fn generate_artifacts(
             .unwrap();
             let source_hash = source_hashes
                 .get(&normalization_operation.name.item)
-                .cloned()
                 .unwrap();
             artifacts.push(generate_normalization_artifact(
                 project_config,
@@ -139,7 +139,6 @@ pub fn generate_artifacts(
         .unwrap();
         let source_hash = source_hashes
             .get(&reader_fragment.name.item)
-            .cloned()
             .unwrap();
         artifacts.push(generate_reader_artifact(
             project_config,

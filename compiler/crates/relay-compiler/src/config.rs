@@ -38,6 +38,22 @@ pub struct Config {
     pub generate_extra_operation_artifacts: Option<GenerateExtraArtifactsFn>,
 }
 
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            root_dir: Default::default(),
+            sources: Default::default(),
+            blacklist: vec![],
+            projects: Default::default(),
+            header: vec![],
+            codegen_command: None,
+            write_artifacts: true,
+            load_saved_state_file: None,
+            generate_extra_operation_artifacts: None,
+        }
+    }
+}
+
 impl Config {
     /// Iterator over projects that are enabled.
     pub fn enabled_projects(&self) -> impl Iterator<Item = &ProjectConfig> {
@@ -303,6 +319,24 @@ pub struct ProjectConfig {
     pub schema_location: SchemaLocation,
     pub typegen_config: TypegenConfig,
     pub persist: Option<PersistConfig>,
+}
+
+impl ProjectConfig {
+    pub fn new(name: ProjectName) -> Self {
+        Self {
+            name,
+            base: None,
+            output: None,
+            extra_artifacts_output: None,
+            shard_output: false,
+            shard_strip_regex: None,
+            extensions: vec![],
+            enabled: true,
+            schema_location: SchemaLocation::File(Default::default()),
+            typegen_config: Default::default(),
+            persist: None,
+        }
+    }
 }
 
 #[derive(Clone, Debug)]

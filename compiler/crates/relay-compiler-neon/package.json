@@ -7,7 +7,7 @@
   "repository": "https://github.com/facebook/relay",
   "license": "MIT",
   "dependencies": {
-    "neon-cli": "^0.4.0"
+    "neon-cli": "^0.4.1"
   },
   "scripts": {
     "install": "neon build",

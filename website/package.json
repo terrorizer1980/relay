@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "docusaurus": "1.14.4",
-    "react-syntax-highlighter": "12.2.1",
+    "react-syntax-highlighter": "13.0.0",
     "spec-md": "^1.1.1"
   },
   "resolutions": {

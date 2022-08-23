@@ -12,14 +12,18 @@
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "crowdin-upload": "crowdin-cli --config ../crowdin.yaml upload sources --auto-update -b master",
-    "crowdin-download": "crowdin-cli --config ../crowdin.yaml download -b master"
+    "crowdin-download": "crowdin-cli --config ../crowdin.yaml download -b master",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
-    "docusaurus": "1.14.4",
-    "react-syntax-highlighter": "12.2.1",
-    "spec-md": "^1.1.1"
+    "docusaurus": "1.14.7",
+    "react-syntax-highlighter": "13.0.0",
+    "spec-md": "^1.1.1",
+    "@snyk/protect": "latest"
   },
   "resolutions": {
     "underscore.string": "^3.3.5"
-  }
+  },
+  "snyk": true
 }

@@ -10,7 +10,7 @@
     ],
     "main": "./extension",
     "dependencies": {
-        "vscode-languageclient": "^6.1.3"
+        "vscode-languageclient": "^7.0.0"
     },
     "contributes": {
         "commands": [

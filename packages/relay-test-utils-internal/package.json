@@ -14,7 +14,7 @@
     "@babel/runtime": "^7.0.0",
     "fbjs": "^1.0.0",
     "relay-runtime": "10.0.1",
-    "relay-compiler": "10.0.1"
+    "relay-compiler": "13.0.0"
   },
   "peerDependencies": {
     "graphql": "^15.0.0"
